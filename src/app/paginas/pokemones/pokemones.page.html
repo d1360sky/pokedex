@@ -5,16 +5,53 @@
 </ion-header>
 
 <ion-content>
-  <p *ngIf="resultado; then datos else cargando "></p>
+  <form [formGroup]="formulario" novalidate>
+    <ion-searchbar
+      showCancelButton="focus"
+      class="custom"
+      placeholder="ingrese un Nombre"
+      formControlName="nombrePokemon"
+      [color]="!formulario.get('nombrePokemon').invalid && formulario.get('nombrePokemon').touched 'danger':'' "
+    ></ion-searchbar>
+    <ion-label
+      *ngIf="!formulario.get('nombrePokemon').valid &&
+      formulario.get('nombrePokemon').errors.minlength &&
+      formulario.get('nombrePokemon').touched"
+      color="danger"
+    >Campo debe ser mayor a 3 caracteres</ion-label>
+    <ion-label
+    *ngIf="!formulario.get('nombrePokemon').valid &&
+    formulario.get('nombrePokemon').errors.maxlength &&
+    formulario.get('nombrePokemon').touched"
+    color="danger"
+  >Campo debe ser menor a 15 caracteres</ion-label>
+
+    <!--
+    {{ formulario.get("nombrePokemon").valid }} <br>
+    {{ formulario.get("nombrePokemon").value }} <br>
+    {{ formulario.get("nombrePokemon").errors | json }} <br>
+    {{ formulario.get("nombrePokemon").touched }} <br>
+    {{ formulario.get("nombrePokemon").dirty }} <br>
+    -->
+  </form>
+
+
+  <p *ngIf="obtenerPokemon.informaciones; then datos else cargando "></p>
   <ng-template  #datos>
     <app-info-pokemon
-    *ngFor="let info of resultado.results"
+    *ngFor="let info of obtenerPokemon.informaciones"
     [url]="info.url"
     ></app-info-pokemon>
   </ng-template>
 
   <ng-template #cargando><ion-progress-bar type="indeterminate" ></ion-progress-bar></ng-template>
 
+  <ion-infinite-scroll (ionInfinite)="cargarMasPokes($event)">
+    <ion-infinite-scroll-content
+    [loadingSpinner]="'dots'"
+    loadingText="Cargando Pokemones">
 
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

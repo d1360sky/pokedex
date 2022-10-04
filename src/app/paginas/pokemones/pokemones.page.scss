@@ -1,0 +1,17 @@
+ion-searchbar.custom {
+  --background: rgb(255, 230, 0);
+  --color: rgb(0, 0, 0);
+  --placeholder-color: rgb(0, 0, 0);
+  --icon-color: rgb(0, 0, 0);
+  --clear-button-color: rgb(0, 0, 0);
+
+  --border-radius: 4px;
+}
+
+ion-searchbar.ios.custom {
+  --cancel-button-color: rgb(255, 230, 0);
+}
+
+ion-searchbar.md.custom {
+  --cancel-button-color: rgb(0, 0, 0);
+}

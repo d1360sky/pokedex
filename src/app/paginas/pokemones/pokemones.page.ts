@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Info, ResultadoPeticion } from './../../modelo/resultado-peticion';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ObtenerPokemonService } from './servicios/obtener-pokemon.service';
+import { IonInfiniteScroll } from '@ionic/angular';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-pokemones',
@@ -8,18 +9,30 @@ import { Info, ResultadoPeticion } from './../../modelo/resultado-peticion';
   styleUrls: ['./pokemones.page.scss'],
 })
 export class PokemonesPage implements OnInit {
-  public resultado!: ResultadoPeticion;
-  private url: string = 'https://pokeapi.co/api/v2/pokemon';
+  @ViewChild(IonInfiniteScroll) public infiniteScroll: IonInfiniteScroll;
+
+  public formulario : FormGroup;
 
   constructor(
-    private httpClient : HttpClient
+    public obtenerPokemon : ObtenerPokemonService,
+    private formBuilder : FormBuilder
   ) { }
 
   ngOnInit() {
-    this.httpClient.get<ResultadoPeticion>(this.url).subscribe(peticion =>{
-      this.resultado = peticion;
-      console.log('',peticion)
-    })
+    this.formulario = this.formBuilder.group({
+      nombrePokemon: new FormControl('',[
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(15)
+      ])
+    });
+
+    this.obtenerPokemon.obtener20Primeros();
   }
+
+public cargarMasPokes(event : Event): void{
+  this.obtenerPokemon.obtenerMasPokemones();
+  this.infiniteScroll.complete();
+}
 
 }
