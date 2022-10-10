@@ -10,9 +10,28 @@ type Stats = {
     name:string;
   }
 }
+type Game_indices = {
+  game_index : number;
+  version : {
+    name:string;
+  }
+}
+type Types = {
+  type : {
+    name : string;
+  }
+}
+type Moves = {
+  move :{
+    name: string;
+  }
+}
 export interface Pokemon {
-  nombre: string;
+  name: string;
   order: number;
   sprites: Sprites;
   stats : Array<Stats>;
+  game_indices : Array<Game_indices>;
+  types : Array<Types>
+  moves : Array<Moves>;
 }

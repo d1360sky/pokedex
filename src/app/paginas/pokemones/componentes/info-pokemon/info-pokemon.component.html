@@ -1,4 +1,4 @@
-<ion-card *ngIf="pokemon" [routerLink]="['',pokemon.name]">
+<ion-card *ngIf="pokemon" [routerLink]="['', url]">
   <ion-card-header>
     <img [src]="pokemon.sprites.front_shiny">
     <ion-card-subtitle>Nº:{{ pokemon.order }}</ion-card-subtitle>
@@ -12,7 +12,5 @@
       </ion-item>
     </ion-list>
   </ion-card-content>
-
-
 </ion-card>
 

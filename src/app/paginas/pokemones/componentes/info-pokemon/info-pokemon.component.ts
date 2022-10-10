@@ -11,6 +11,7 @@ export class InfoPokemonComponent implements OnInit {
   @Input() public url!: string;
   public pokemon!: Pokemon;
 
+
   constructor(
     private httpClient: HttpClient
   ) { }
@@ -20,5 +21,6 @@ export class InfoPokemonComponent implements OnInit {
       this.pokemon = resultado;
     })
   }
+
 
 }
