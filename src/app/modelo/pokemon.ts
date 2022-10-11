@@ -1,6 +1,6 @@
 type Sprites = {
   front_default: string;
-  front_female?:string;
+  back_default:string;
   front_shiny?:string;
   front_shiny_female?:string;
 }
